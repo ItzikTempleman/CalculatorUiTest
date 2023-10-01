@@ -40,7 +40,7 @@ fun CalculatorButton(
             Icon(
                 painter = it,
                 contentDescription = null,
-                tint= Color.White,
+                tint= Color.White
             )
         }
     }

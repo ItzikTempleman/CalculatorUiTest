@@ -21,35 +21,31 @@ fun CalculatorButton(
     onClick: () -> Unit
 ) {
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .clip(CircleShape)
+        modifier =  modifier.clip(CircleShape)
             .clickable {
                 onClick()
             }
-            .then(modifier)
     ) {
-
         if (symbol != null) {
             Text(
                 text = symbol,
                 fontSize = 36.sp,
-                color = Color.White
+                color = Color.Black
             )
         } else painter?.let {
             Icon(
                 painter = it,
                 contentDescription = null,
-                tint = Color.White
+                tint = Color.Black
             )
         }
     }
 }
 
 val buttons = listOf(
-    "%","AC", "Pow", "/",
-    "7", "8", "9", "*",
+    "AC", "^","%", "/",
+    "7", "8", "9", "X",
     "4", "5", "6", "-",
     "1", "2", "3", "+",
-    "Del", "0", ".", "="
+     "0", ".","Del", "="
 )

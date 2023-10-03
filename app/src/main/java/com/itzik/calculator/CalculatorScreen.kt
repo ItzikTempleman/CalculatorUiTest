@@ -1,17 +1,19 @@
 package com.itzik.calculator
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -20,59 +22,69 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.calculatoruitest.R
-import com.itzik.theme.LightGray
+import com.itzik.theme.LightPink
+import com.itzik.theme.LightPurple
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun CalculatorScreen(
     state: CalculatorState,
-    modifier: Modifier = Modifier,
-    buttonSpacing: Dp = 8.dp,
+    modifier: Modifier,
     onAction: (CalculatorAction) -> Unit,
 ) {
-    Box(modifier = modifier) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(buttonSpacing)
-        ) {
-            Text(
-                text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
-                textAlign = TextAlign.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 32.dp),
-                fontWeight = FontWeight.Light,
-                fontSize = 80.sp,
-                color = Color.Black,
-                maxLines = 2
-            )
+    ConstraintLayout(modifier = modifier) {
+        val (textBox, buttonsColumn) = createRefs()
+            Box(
+                modifier = modifier.constrainAs(textBox){
+                    top.linkTo(parent.top)
+                }
+                    .fillMaxWidth().height(200.dp)
+                    .background(LightPurple)
+            ) {
+                val data = state.number1 + (state.operation?.symbol ?: "") + state.number2
+                Text(
+                    text = data,
+                    textAlign = TextAlign.End,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(top = 32.dp),
+                    fontWeight = FontWeight.Light,
+                    fontSize = 80.sp,
+                    color = Color.Black,
+                    maxLines = 2
+                )
+            }
+
 
             LazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = modifier.constrainAs(buttonsColumn) {
+                    top.linkTo(textBox.bottom)
+                    bottom.linkTo(parent.bottom)
+                }.fillMaxWidth(),
                 columns = GridCells.Fixed(4),
-                horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
             ) {
                 items(buttons.size) { index ->
                     val button = buttons[index]
-
                     CalculatorButton(
                         symbol = button,
-                       painter = painterResource(id = R.drawable.baseline_backspace_24),
-                        modifier = Modifier.background(LightGray).aspectRatio(1f)
-                            .weight(1f).padding(buttonSpacing)) {
-
+                        painter = painterResource(id = R.drawable.baseline_backspace_24),
+                        modifier = Modifier
+                            .background(LightPink)
+                            .padding(8.dp)
+                    ) {
                         onAction(
                             when (button) {
                                 "%" -> CalculatorAction.Operation(CalculatorOperation.Percentage)
                                 "AC" -> CalculatorAction.Clear
-                                "Pow" -> CalculatorAction.Operation(CalculatorOperation.Power)
+                                "^" -> CalculatorAction.Operation(CalculatorOperation.Power)
                                 "/" -> CalculatorAction.Operation(CalculatorOperation.Divide)
                                 "7" -> CalculatorAction.Number(7)
                                 "8" -> CalculatorAction.Number(8)
                                 "9" -> CalculatorAction.Number(9)
-                                "*" -> CalculatorAction.Operation(CalculatorOperation.Multiply)
+                                "X" -> CalculatorAction.Operation(CalculatorOperation.Multiply)
                                 "4" -> CalculatorAction.Number(4)
                                 "5" -> CalculatorAction.Number(5)
                                 "6" -> CalculatorAction.Number(6)
@@ -93,4 +105,3 @@ fun CalculatorScreen(
             }
         }
     }
-}

@@ -15,4 +15,5 @@ val MediumGray=Color(0xFF2E2E2E)
 val LightGray=Color(0xFF818181)
 val Orange=Color(0xFFFF9800)
 
-val LightPink=Color(0xFFFFC8D8)
+val LightPink=Color(0xFFFCE6EC)
+val LightPurple = Color(0xFFECE4f0)

@@ -1,4 +1,4 @@
-package com.itzik.calculator.ui
+package com.itzik.calculator
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CalculatorButton(
-    symbol: String? = null,
+    symbol: String?=null,
     painter: Painter? = null,
     modifier: Modifier,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -40,8 +40,16 @@ fun CalculatorButton(
             Icon(
                 painter = it,
                 contentDescription = null,
-                tint= Color.White
+                tint = Color.White
             )
         }
     }
 }
+
+val buttons = listOf(
+    "%","AC", "Pow", "/",
+    "7", "8", "9", "*",
+    "4", "5", "6", "-",
+    "1", "2", "3", "+",
+    "Del", "0", ".", "="
+)

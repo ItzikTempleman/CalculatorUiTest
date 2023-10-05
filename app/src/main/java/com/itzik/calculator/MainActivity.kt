@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 CalculatorScreen(
                     state = state,
                     onAction = viewModel::onAction,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().background(Color.White)
                 )
             }
         }

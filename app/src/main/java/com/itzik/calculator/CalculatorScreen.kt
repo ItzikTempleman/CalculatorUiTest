@@ -62,8 +62,7 @@ fun CalculatorScreen(
                     top.linkTo(textBox.bottom)
                     bottom.linkTo(parent.bottom)
                 }
-                .fillMaxWidth()
-                .wrapContentHeight(),
+                .fillMaxWidth(),
             columns = GridCells.Fixed(4),
         ) {
             items(buttons.size) { index ->

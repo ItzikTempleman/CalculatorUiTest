@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.calculatoruitest.R
+import com.itzik.calculatoruitest.R
 import com.itzik.theme.LightPink
 import com.itzik.theme.LightPurple
 
